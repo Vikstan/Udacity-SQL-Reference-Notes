@@ -469,6 +469,20 @@ LEFT JOIN orders o
 ON a.id = o.account_id;
 ```
 	
+	
+QUIZ QUESTION
+Identify the correct SQL query. The table below is titled products_db. Which is the correct SQL query that will calculate the total sales value of each product based on the product’s respective price and total units held (a combination of units in stock and ordered).
+
+Product|Unit_price|Num_in_stock|Num_ordered
+a      |2.00	  |10	       |5
+b      |2.50	  |15	       |
+c      |3.00	  |20	       |10
+d      |3.50	  |25	       |
+	
+```sql
+	SELECT product, unit_price* (num_in_stock + COALESCE (num_ordered, 0)) FROM product_db;
+```
+	
 ### Lesson Overview
 In this lesson you learned to :
 
