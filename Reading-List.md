@@ -6,5 +6,5 @@ Why You Need Database Normalization
 https://www.itprotoday.com/sql-server/sql-design-why-you-need-database-normalization
 Why No Many-to-Many Relationships?
 https://stackoverflow.com/questions/7339143/why-no-many-to-many-relationships
-
+Some helpful documentation showing syntax for Data Cleaning of string functions https://www.postgresql.org/docs/8.1/functions-string.html
 
