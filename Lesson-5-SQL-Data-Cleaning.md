@@ -390,71 +390,85 @@ The three methods below are the most common ways to deal with null values in SQL
 
 ### COALESCE problems
 
-1. Use COALESCE to fill in the accounts.id column with the account.id for the NULL value for the table created by this query:
+Tasks to complete:
+
+1. Run the query entered below in the SQL workspace to notice the row with missing data.
 
 ```sql
-SELECT *
+	SELECT *
+        FROM accounts a
+        LEFT JOIN orders o
+        ON a.id = o.account_id
+        WHERE o.total IS NULL;
+```
+	
+2.Use COALESCE to fill in the accounts.id column with the account. id for the NULL value for the table in question 1.
+
+```sql
+	SELECT COALESCE(a.id, a.id) "filled id", a.name, a.website, a.lat, a.long, a.primary_poc, a.sales_rep_id, o.*
+        FROM accounts a
+        LEFT JOIN orders o
+        ON a.id = o.account_id
+        WHERE o.total IS NULL;
+```
+
+3. Use COALESCE to fill in the orders.account id column with the account.id for the NULL value for the table in question 1.
+
+```sql
+      SELECT a.*, COALESCE(o.account_id, a.id) "account_id", o.occurred_at, o.standard_qty,o.gloss_qty, o.poster_qty, o.total, o.standard_amt_usd, o.gloss_amt_usd, o.poster_amt_usd, o.total_amt_usd
+      FROM accounts a
+      LEFT JOIN orders o
+      ON a.id = o.account_id
+      WHERE o.total IS NULL;
+
+```
+
+4. Use COALESCE to fill in each of the qty and usd columns with 0 for the table in question 1 
+
+```sql
+	SELECT COALESCE(a.id, a.id) "filled id", a.name, a.website, a.lat, a.long, a.primary_poc, a.sales_rep_id,
+	       COALESCE(o.account_id, a.id) "filled account_id", o.occurred_at, 
+	       COALESCE(o.standard_qty, 0) "standard qty", 
+	       COALESCE(o.gloss_qty, 0) "gloss qty", 
+	       COALESCE(o.poster_qty, 0) "poster qty", 
+	       COALESCE(o.total, 0) total, 
+	       COALESCE(o.standard_amt_usd, 0) "standard amt usd", 
+	       COALESCE(o.gloss_amt_usd, 0) "gloss amt usd", 
+	       COALESCE(o.poster_amt_usd, 0) "poster amt usd", 
+	       COALESCE(o.total_amt_usd, 0) "total amt usd"
+        FROM accounts a
+        LEFT JOIN orders o
+        ON a.id = o.account_id
+        WHERE o.total IS NULL;
+```
+
+5. Run the query in question 1 with the WHERE removed and COUNT the number of ids.
+
+```sql
+	SELECT COUNT(*)
+        FROM accounts a
+        LEFT JOIN orders o
+        ON a.id = o.account_id;
+```
+
+6. Run the query in question 5, but with the COALESCE function used in questions 2 through 4
+
+```sql
+	SELECT COALESCE(a.id, a.id) "filled id", a.name, a.website, a.lat, a.long, a.primary_poc, a.sales_rep_id,      
+	       COALESCE(o.account_id, a.id) "filled account_id", o.occurred_at, 
+	       COALESCE(o.standard_qty, 0) "standard qty",  
+	       COALESCE(o.gloss_qty, 0) "gloss qty", 
+	       COALESCE(o.poster_qty, 0) "poster qty", 
+	       COALESCE(o.total, 0) total, 
+	       COALESCE(o.standard_amt_usd, 0) "standard amt usd", 
+	       COALESCE(o.gloss_amt_usd, 0) "gloss amt usd", 
+	       COALESCE(o.poster_amt_usd, 0) "poster amt usd", 
+	       COALESCE(o.total_amt_usd, 0) "total amt usd"
 FROM accounts a
 LEFT JOIN orders o
-ON a.id = o.account_id
-WHERE o.total IS NULL;
+ON a.id = o.account_id;
 ```
-
-Solution:
-```sql
-SELECT 
-    -- you don't need 2 a.id arguments here
-    -- you only need 1. i think using 2 here
-    -- just makes it more confusing
-    COALESCE(a.id, a.id) filled_id, 
-    a.name, 
-    a.website, 
-    a.lat, 
-    a.long, 
-    a.primary_poc, 
-    a.sales_rep_id, 
-    o.*
-FROM accounts a
-LEFT JOIN orders o
-ON a.id = o.account_id
-WHERE o.total IS NULL;
-```
-
-2. Use COALESCE to fill in the orders.account_id column with the account.id for the NULL value for the table created by the query in question 1.
-
-```sql
-select 
-    a.*
-    coalesce(o.account_id, a.id) as filled_account_id
-    -- other orders columns go here
-from accounts a
-left join orders o
-on a.id = o.account_id
-where o.total is null;
-```
-
-3. Still referring to the table creatred by the query in question 1, fill in the order table's columns with either data from the order, if it exists, or with a 0.
-
-```sql
-SELECT 
-    COALESCE(a.id, a.id) filled_id, 
-    -- other accounts columns go here
-    COALESCE(o.account_id, a.id) account_id, 
-    o.occurred_at, 
-    COALESCE(o.standard_qty, 0) standard_qty, 
-    COALESCE(o.gloss_qty,0) gloss_qty, 
-    COALESCE(o.poster_qty,0) poster_qty, 
-    COALESCE(o.total,0) total, 
-    COALESCE(o.standard_amt_usd,0) standard_amt_usd, 
-    COALESCE(o.gloss_amt_usd,0) gloss_amt_usd, 
-    COALESCE(o.poster_amt_usd,0) poster_amt_usd, 
-    COALESCE(o.total_amt_usd,0) total_amt_usd
-FROM accounts a
-LEFT JOIN orders o
-ON a.id = o.account_id
-WHERE o.total IS NULL;
-```
-
+	
 ### Lesson Overview
 In this lesson you learned to :
 
