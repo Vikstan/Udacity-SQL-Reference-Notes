@@ -2,8 +2,9 @@
 
 ### Two Use Cases for Window Functions
 
-- When you want to measure trends or changes over rows or records in your data.
-- When you want to rank a column for outreach or prioritization.
+- When you want to measure trends or changes over rows or records in your data [To understand a running total or a running metric while maintaining individual records].
+- When you want to rank a column for outreach or prioritization [To rank a dataset
+].
 
 A few cases where you’d have these needs are described below:
 
@@ -29,6 +30,14 @@ This is from the Postgres documentation:
 "A window function performs a calculation across a set of table rows that are somehow related to the current row. This is comparable to the type of calculation that can be done with an aggregate function. But unlike regular aggregate functions, use of a window function does not cause rows to become grouped into a single output row — the rows retain their separate identities. Behind the scenes, the window function is able to access more than just the current row of the query result."
 
 More here: https://www.postgresql.org/docs/9.1/tutorial-window.html
+
+Windows functions can be created using:
+
+-- Core Functions
+-- Ranking Functions
+-- Advanced Functions
+
+
 
 Here is the general form of a window function:
 ```sql
