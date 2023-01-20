@@ -6,6 +6,13 @@
 - When you want to rank a column for outreach or prioritization [To rank a dataset
 ].
 
+Windows Functions are used;
+
+1. When you are trying to track changes over time or build a running total.
+2. When you want to rank a column
+3. When you want to retain the total number of rows and not condense the table at all.
+
+
 A few cases where you’d have these needs are described below:
 
 #### Measuring change over time:
