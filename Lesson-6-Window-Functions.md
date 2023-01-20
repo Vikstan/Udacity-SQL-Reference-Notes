@@ -36,11 +36,11 @@ This is from the Postgres documentation:
 
 When window functions are used, you’ll notice new column names like the following:
 
-Average running price
-Running total orders
-Running sum sales
-Rank
-Percentile
+*Average running price
+*Running total orders
+*Running sum sales
+*Rank
+*Percentile
 
 More here: https://www.postgresql.org/docs/9.1/tutorial-window.html
 
