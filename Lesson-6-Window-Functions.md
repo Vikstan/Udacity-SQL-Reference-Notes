@@ -19,7 +19,12 @@ A few cases where you’d have these needs are described below:
 
 ### What is a Window Function?
 
-A window function is a calculation across a set of rows within a table that is related to the current row. Window functions are similar to aggregate functions, but they retain the total number of rows between the input table and the output table (or result).
+A window function is a calculation across a set of rows within a table that is related to the current row. This means we’re typically:
+
+Calculating running totals that incorporate the current row or,
+Ranking records across rows, inclusive of the current one
+
+Window functions are similar to aggregate functions, but they retain the total number of rows between the input table and the output table (or result).
 
 Window functions are permitted only in the SELECT list and the ORDER BY clause of the query.
 
@@ -28,6 +33,14 @@ They are forbidden elsewhere, such as in GROUP BY, HAVING and WHERE clauses. Thi
 This is from the Postgres documentation:
 
 "A window function performs a calculation across a set of table rows that are somehow related to the current row. This is comparable to the type of calculation that can be done with an aggregate function. But unlike regular aggregate functions, use of a window function does not cause rows to become grouped into a single output row — the rows retain their separate identities. Behind the scenes, the window function is able to access more than just the current row of the query result."
+
+When window functions are used, you’ll notice new column names like the following:
+
+Average running price
+Running total orders
+Running sum sales
+Rank
+Percentile
 
 More here: https://www.postgresql.org/docs/9.1/tutorial-window.html
 
