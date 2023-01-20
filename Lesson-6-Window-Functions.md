@@ -12,6 +12,7 @@ Windows Functions are used;
 2. When you want to rank a column
 3. When you want to retain the total number of rows and not condense the table at all.
 
+A window function allows users to compare one row to another without doing any joins.
 
 A few cases where you’d have these needs are described below:
 
